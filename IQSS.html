@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide Interactif IQSS Cortexte</title>
+    <!-- Chargement de Tailwind CSS pour un design moderne et responsive -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configuration de Tailwind (optionnel, pour les polices par défaut) -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+
+    <!-- Styles CSS personnalisés pour affiner le design et gérer les accordéons -->
+    <style>
+        /* Style de base pour la page */
+        body {
+            font-family: 'Inter', 'sans-serif';
+            background-color: #f4f7f6; /* Fond gris très clair */
+        }
+
+        /* Style pour la barre de recherche lors du focus */
+        #search-bar:focus {
+            box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
+            border-color: #86b7fe;
+        }
+
+        /* Style pour les onglets */
+        .tab-link {
+            transition: all 0.2s ease-in-out;
+            border-bottom: 3px solid transparent;
+        }
+        .tab-link.active {
+            border-bottom-color: #2563eb; /* Bleu Tailwind */
+            color: #1d4ed8; /* Bleu plus foncé */
+        }
+        .tab-link:hover:not(.active) {
+            background-color: #f0f0f0;
+        }
+
+        /* Style pour les accordéons (éléments <details>) */
+        details {
+            transition: background-color 0.2s ease;
+        }
+        details[open] {
+            background-color: #f9fafb; /* Fond légèrement gris si ouvert */
+        }
+        details > summary {
+            cursor: pointer;
+            list-style: none; /* Supprime le marqueur par défaut */
+            position: relative;
+            padding-left: 2.5rem; /* Espace pour l'icône personnalisée */
+            transition: background-color 0.2s ease;
+        }
+        details > summary:hover {
+            background-color: #f3f4f6;
+        }
+        
+        /* Icône + / - personnalisée pour l'affordance */
+        details > summary::before {
+            content: '+';
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: #2563eb;
+            background-color: #eff6ff;
+            width: 1.5rem;
+            height: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px; /* Cercle complet */
+            line-height: 1;
+        }
+
+        details[open] > summary::before {
+            content: '−'; /* Caractère moins */
+            font-weight: 400;
+        }
+
+        /* Style pour les blocs de code (chemin Cortexte) - Supprimé car géré par Tailwind sur les <a> */
+
+        /* Classe utilitaire pour cacher les éléments lors de la recherche */
+        .hidden-by-search {
+            display: none !important;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-4 md:p-8">
+
+    <!-- Conteneur principal -->
+    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
+        
+        <!-- En-tête -->
+        <header class="p-6 border-b border-gray-200">
+            <h1 class="text-2xl md:text-3xl font-bold text-blue-800">Guide de traçabilité IQSS</h1>
+            <p class="text-gray-600 mt-1">Référence interactive pour la traçabilité dans Cortexte (Grilles Blue Kango)</p>
+        </header>
+
+        <!-- Barre de recherche et Onglets -->
+        <nav class="p-6 sticky top-0 bg-white z-10 shadow-sm">
+            <!-- Barre de recherche -->
+            <input type
+="search" id="search-bar" placeholder="Rechercher un item, un chemin..." class="w-full p-3 border border-gray-300 rounded-lg text-base transition duration-200 ease-in-out focus:outline-none">
+            
+            <!-- Onglets -->
+            <div class="flex border-b border-gray-200 mt-6">
+                <button id="tab-hc" class="tab-link active text-gray-700 font-medium py-3 px-6" data-tab="hc-content">
+                    Hospitalisation Complète (HC)
+                </button>
+                <button id="tab-ambu" class="tab-link text-gray-700 font-medium py-3 px-6" data-tab="ambu-content">
+                    Ambulatoire
+                </button>
+            </div>
+        </nav>
+
+        <!-- Contenu des onglets -->
+        <main class="p-6" id="tab-content-container">
+
+            <!-- ########## CONTENU HOSPITALISATION COMPLÈTE (HC) ########## -->
+            <div id="hc-content" class="tab-pane active">
+                
+                <section class="mb-6 theme-section">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4 border-l-4 border-blue-600 pl-3">Évaluation du risque cardio-vasculaire et métabolique</h2>
+                    
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">Les antécédents cardiovasculaires et métaboliques personnels</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="mb-2"><strong>Chemin Cortexte:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Quest * QUESTIONNAIRES PEC / Ajouter * ANTECEDENTS PATIENT</a></p>
+                            <p class="text-sm text-gray-600"><strong>Remarques:</strong> Les antécédants déjà renseignés peuvent être automatiquement "récupérés".</p>
+                        </div>
+                    </details>
+                    
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">La mention d'une recherche des facteurs de risque thrombo-emboliques</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="mb-2"><strong>Chemin Cortexte:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Quest * QUESTIONNAIRES PEC / Ajouter * ANTECEDENTS PATIENT</a></p>
+                            <p class="text-sm text-gray-600"><strong>Remarques:</strong> Guide détaillé: Permet de renseigner les risques Thromboemboliques.</p>
+                        </div>
+                    </details>
+
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">Une mesure de la pression artérielle</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="mb-2"><strong>Chemin Cortexte:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Soins * SOINS / Pancarte * Pancarte / Générale</a> ou <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Pancarte * Pancarte / Générale</a></p>
+                        </div>
+                    </details>
+
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">L'IMC et la mesure du périmètre abdominal</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="mb-2"><strong>Chemin Cortexte:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Pancarte * Générale</a></p>
+                        </div>
+                    </details>
+
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">Une conclusion d'ECG avec une analyse de l'intervalle QTc</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="mb-2"><strong>Chemin Cortexte:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Doc. E. * DOCUMENTS EXTERNES / Exam Paracliniques_ECG</a></p>
+                            <p class="text-sm text-gray-600"><strong>Remarques:</strong> ECG daté avec QTc visé par médecin.</p>
+                        </div>
+                    </details>
+
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">Les résultats d'un bilan glycémique et lipidique</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="mb-2"><strong>Si Vinatier:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Biol. * BIOLOGIES / Lien SRI pour les résultats</a></p>
+                            <p class="mb-2"><strong>Si extérieur:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Doc. E. * DOCUMENTS EXTERNES / Lister *Exam Paracliniques_Biologies</a></p>
+                            <p class="text-sm text-gray-600"><strong>Remarques:</strong> Pour visualiser les prescriptions: <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Biol. * BIOLOGIES / Lister</a></p>
+                        </div>
+                    </details>
+                </section>
+
+                <section class="mb-6 theme-section">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4 border-l-4 border-blue-600 pl-3">Évaluation et prise en charge des addictions</h2>
+                    
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">Repérage Consommation Tabac, Alcool, Canabis</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="mb-2"><strong>Chemin Cortexte:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Quest * QUESTIONNAIRES PEC / Lien REQUEST * ACCES FONCTIONNALITES/ Saisir un nouveau questionnaire* (BM#1)screening_addicto—addiction</a></p>
+                            <p class="mb-2"><strong>ou</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Quest * QUESTIONNAIRES PEC / Lien REQUEST *Base minimale / Base minimale #1 / (BM#1)screening_addicto—addiction</a></p>
+                            <p class="text-sm text-gray-600"><strong>Remarques:</strong> Valider le questionnaire pour l'enregistrer. Les questionnaires déjà effectués sont listés en bas de page d'accueil REQUEST.</p>
+                        </div>
+                    </details>
+
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">Si consommation, proposition d'aide à l'arrêt</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="mb-2"><strong>Chemin Cortexte:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Obs * Ajouter / …</a></p>
+                            <p class="text-sm text-gray-600"><strong>Remarques:</strong> Proposition d'arrêt : En attendant positionnement polaire, je propose de les tracer dans les observations.</p>
+                        </div>
+                    </details>
+                </section>
+
+                <section class="mb-6 theme-section">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4 border-l-4 border-blue-600 pl-3">Qualité de la lettre de liaison à la sortie</h2>
+                    
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">Retrouve-t-on la lettre de liaison dans le dossier ?</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="mb-2"><strong>Chemin Cortexte:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Doc * Documents / Doc et couriers / Lettre de Laison</a></p>
+                        </div>
+                    </details>
+
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">Retrouve-t-on la traçabilité de la remise au patient le jour de sa sortie</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="mb-2"><strong>Chemin Cortexte:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Quest / QUESTIONNAIRES PEC / (CHECKLIST) CHECKLIST sortie (Majeur)</a></p>
+                        </div>
+                    </details>
+
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">Retrouve-t-on la traçabilité de la remise au patient le jour de sa sortie</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="mb-2"><strong>Chemin Cortexte:</strong> <code>Quest / QUESTIONNAIRES PEC / (CHECKLIST) CHECKLIST sortie (Majeur)</code></p>
+                        </div>
+                    </details>
+
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">Traçabilité de l'envoi au médecin traitant (ou refus patient)</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="text-sm text-gray-600"><em>(Information non spécifiée dans la grille)</em></p>
+                        </div>
+                    </details>
+                </section>
+
+                <section class="mb-6 theme-section">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4 border-l-4 border-blue-600 pl-3">Prise en charge de la douleur</h2>
+                    
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">Une évaluation et réévaluation de la douleur somatique avec une échelle</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="mb-2"><strong>Chemin Cortexte:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Pancarte * Echelle douleur / EVA</a></p>
+                        </div>
+                    </details>
+
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">En présence d'une douleur somatique, traçabilité d'une stratégie de prise en charge</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="mb-2"><strong>Chemin Cortexte:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Obs* Ajouter / …</a></p>
+                            <p class="text-sm text-gray-600"><strong>Remarques:</strong> Exemple si EVA>4 : EVA dans Pancarte avec réévaluation >2h traitement / Administration antalgique ou vessie glace dans Val.Patient. Transmission ciblée + autres actions (salon sensoriel...).</p>
+                        </div>
+                    </details>
+                </section>
+                
+                <section class="mb-6 theme-section">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4 border-l-4 border-blue-600 pl-3">Évaluation gastro intestinale</h2>
+                    
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">Une évaluation du transit intestinal</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="mb-2"><strong>Chemin Cortexte:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Soins * SOINS / Pancarte* Pancarte / Apport / élimination</a> ou <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Pancarte * Pancarte / Apport / élimination</a></p>
+                        </div>
+                    </details>
+
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">Une évaluation de la déglutition</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="mb-2"><strong>Chemin Cortexte:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Quest * QUESTIONNAIRES PEC / Ajouter / Dépistage du risque de fausse route</a></p>
+                            <p class="text-sm text-gray-600"><strong>Remarques:</strong> Si pas de facteurs de risque : Pas de test. Si facteurs de risque : Test à l'eau ou / puis Test à l'eau gélifiée.</p>
+                        </div>
+                    </details>
+                </section>
+
+                <section class="mb-6 theme-section">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4 border-l-4 border-blue-600 pl-3">Évaluation du risque suicidaire</h2>
+                    
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">Une évaluation de la crise suicidaire en utilisant la grille RUD</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="mb-2"><strong>Chemin Cortexte:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Quest * QUESTIONNAIRES PEC / Lien REQUEST * ACCES FONCTIONNALITES/ Saisir un nouveau questionnaire* (BM#1) UDR / RUD-Risque suicidaire</a></p>
+                            <p class="mb-2"><strong>ou</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">... / Base minimale #1 / (BM#1) UDR / RUD-Risque suicidaire</a></p>
+                            <p class="mb-2"><strong>Puis:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">... / Tableau récapitulatif des scores ... / Exporter en Pdf ou Excel</a></p>
+                            <p class="text-sm text-gray-600"><strong>Remarques:</strong> Valider le questionnaire pour l'enregistrer.</p>
+                        </div>
+                    </details>
+                    
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">Une conclusion médicale sur le risque suicidaire</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="mb-2"><strong>Chemin Cortexte:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Obs* Ajouter / …</a></p>
+                            <p class="text-sm text-gray-600"><strong>Remarques:</strong> Conclusion Médicale avec le score à tracer dans l'observation de Cortexte.</p>
+                        </div>
+                    </details>
+                </section>
+
+                <section class="mb-6 theme-section">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4 border-l-4 border-blue-600 pl-3">Personne de confiance et Mail</h2>
+                    
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">L'information a-t-elle été faite?</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="mb-2"><strong>Chemin Cortexte:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Quest / QUESTIONNAIRES PEC /(CHECKLIST) CHECKLIST Entrée (Majeur)</a></p>
+                        </div>
+                    </details>
+
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">La personne de confiance est-elle identifiée avec un "C"?</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="mb-2"><strong>Chemin Cortexte:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Corres. * Correspondants / P-C * Correspondant personnel</a></p>
+                            <p class="text-sm text-gray-600"><strong>Remarques:</strong> Si P est différent de C, "Ajouter un correspondant personnel", établir 2 fiches distinctes en cochant pour l'une P et l'autre C.</p>
+                        </div>
+                    </details>
+
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">Le formulaire signé est-il retrouvé?</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="mb-2"><strong>Chemin Cortexte:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Doc.E.* Documents Externes * Courriers et accords patient Designation personne de Confiance...</a></p>
+                        </div>
+                    </details>
+
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">Le mail du patient est-il renseigné ?</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="mb-2"><strong>Chemin Cortexte:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Patient / Identité * Identité du patient</a></p>
+                        </div>
+                    </details>
+                </section>
+
+                <section class="mb-6 theme-section">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4 border-l-4 border-blue-600 pl-3">Isolement et contention</h2>
+                    
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">Si contention, au moins une évaluation des points d'attaches</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="mb-2"><strong>Chemin Cortexte:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Pancarte * Isolement / Contention</a></p>
+                        </div>
+                    </details>
+
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">Mention d'un débriefing post-isolement avec le patient</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="mb-2"><strong>Chemin Cortexte:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Quest * QUESTIONNAIRES PEC / Ajouter * ( ISOLEMENT ET CONTENTION) / Debriefing Post Isolement</a></p>
+                        </div>
+                    </details>
+                </section>
+
+            </div>
+
+            <!-- ########## CONTENU AMBULATOIRE ########## -->
+            <div id="ambu-content" class="tab-pane hidden">
+                
+                <section class="mb-6 theme-section">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4 border-l-4 border-blue-600 pl-3">Évaluation du risque cardio-vasculaire et métabolique</h2>
+                    
+                    <!-- Items identiques à HC -->
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">Les antécédents cardiovasculaires et métaboliques personnels</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="mb-2"><strong>Chemin Cortexte:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Quest * QUESTIONNAIRES PEC / Ajouter * ANTECEDENTS PATIENT</a></p>
+                            <p class="text-sm text-gray-600"><strong>Remarques:</strong> Les antécédants déjà renseignés peuvent être automatiquement "récupérés".</p>
+                        </div>
+                    </details>
+                    
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">La mention d'une recherche des facteurs de risque thrombo-emboliques</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="mb-2"><strong>Chemin Cortexte:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Quest * QUESTIONNAIRES PEC / Ajouter * ANTECEDENTS PATIENT</a></p>
+                            <p class="text-sm text-gray-600"><strong>Remarques:</strong> Guide détaillé: Permet de renseigner les risques Thromboemboliques.</p>
+                        </div>
+                    </details>
+
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">Une mesure de la pression artérielle</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="mb-2"><strong>Chemin Cortexte:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Soins * SOINS / Pancarte * Pancarte / Générale</a> ou <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Pancarte * Pancarte / Générale</a></p>
+                        </div>
+                    </details>
+
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">L'IMC et la mesure du périmètre abdominal</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="mb-2"><strong>Chemin Cortexte:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Pancarte * Générale</a></p>
+                        </div>
+                    </details>
+
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">Une conclusion d'ECG avec une analyse de l'intervalle QTc</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="mb-2"><strong>Chemin Cortexte:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Doc. E. * DOCUMENTS EXTERNES / Exam Paracliniques_ECG</a></p>
+                            <p class="text-sm text-gray-600"><strong>Remarques:</strong> ECG daté avec QTc visé par médecin.</p>
+                        </div>
+                    </details>
+
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">Les résultats d'un bilan glycémique et lipidique</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="mb-2"><strong>Si Vinatier:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Biol. * BIOLOGIES / Lien SRI pour les résultats</a></p>
+                            <p class="mb-2"><strong>Si extérieur:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Doc. E. * DOCUMENTS EXTERNES / Lister *Exam Paracliniques_Biologies</a></p>
+                            <p class="text-sm text-gray-600"><strong>Remarques:</strong> Pour visualiser les prescriptions: <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Biol. * BIOLOGIES / Lister</a></p>
+                        </div>
+                    </details>
+                </section>
+                
+                <section class="mb-6 theme-section">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4 border-l-4 border-blue-600 pl-3">Évaluation et prise en charge des addictions</h2>
+                    
+                    <!-- Items identiques à HC -->
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">Repérage Consommation Tabac, Alcool, Canabis</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="mb-2"><strong>Chemin Cortexte:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Quest * QUESTIONNAIRES PEC / Lien REQUEST * ACCES FONCTIONNALITES/ Saisir un nouveau questionnaire* (BM#1)screening_addicto—addiction</a></p>
+                            <p class="mb-2"><strong>ou</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Quest * QUESTIONNAIRES PEC / Lien REQUEST *Base minimale / Base minimale #1 / (BM#1)screening_addicto—addiction</a></p>
+                            <p class="text-sm text-gray-600"><strong>Remarques:</strong> Valider le questionnaire pour l'enregistrer. Les questionnaires déjà effectués sont listés en bas de page d'accueil REQUEST.</p>
+                        </div>
+                    </details>
+
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">Si consommation, proposition d'aide à l'arrêt</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="mb-2"><strong>Chemin Cortexte:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Obs * Ajouter / …</a></p>
+                            <p class="text-sm text-gray-600"><strong>Remarques:</strong> Proposition d'arrêt : En attendant positionnement polaire, je propose de les tracer dans les observations.</p>
+                        </div>
+                    </details>
+                </section>
+                
+                <section class="mb-6 theme-section">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4 border-l-4 border-blue-600 pl-3">Qualité de la lettre de liaison à la sortie</h2>
+                    
+                    <!-- Items identiques à HC -->
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">Retrouve-t-on la lettre de liaison dans le dossier ?</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="mb-2"><strong>Chemin Cortexte:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Doc * Documents / Doc et couriers / Lettre de Laison</a></p>
+                        </div>
+                    </details>
+
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">Retrouve-t-on la traçabilité de la remise au patient le jour de sa sortie</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="mb-2"><strong>Chemin Cortexte:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Quest / QUESTIONNAIRES PEC / (CHECKLIST) CHECKLIST sortie (Majeur)</a></p>
+                        </div>
+                    </details>
+
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">Retrouve-t-on la traçabilité de la remise au patient le jour de sa sortie</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="mb-2"><strong>Chemin Cortexte:</strong> <code>Quest / QUESTIONNAIRES PEC / (CHECKLIST) CHECKLIST sortie (Majeur)</code></p>
+                        </div>
+                    </details>
+
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">Traçabilité de l'envoi au médecin traitant (ou refus patient)</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="text-sm text-gray-600"><em>(Information non spécifiée dans la grille)</em></p>
+                        </div>
+                    </details>
+                </section>
+                
+                <section class="mb-6 theme-section">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4 border-l-4 border-blue-600 pl-3">Prise en charge de la douleur</h2>
+                    
+                    <!-- Items identiques à HC -->
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">Une évaluation et réévaluation de la douleur somatique avec une échelle</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="mb-2"><strong>Chemin Cortexte:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Pancarte * Echelle douleur / EVA</a></p>
+                        </div>
+                    </details>
+
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">En présence d'une douleur somatique, traçabilité d'une stratégie de prise en charge</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="mb-2"><strong>Chemin Cortexte:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Obs* Ajouter / …</a></p>
+                            <p class="text-sm text-gray-600"><strong>Remarques:</strong> Exemple si EVA>4 : EVA dans Pancarte avec réévaluation >2h traitement / Administration antalgique ou vessie glace dans Val.Patient. Transmission ciblée + autres actions (salon sensoriel...).</p>
+                        </div>
+                    </details>
+                </section>
+                
+                <section class="mb-6 theme-section">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4 border-l-4 border-blue-600 pl-3">Évaluation gastro intestinale</h2>
+                    
+                    <!-- Item différent de HC -->
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">Une évaluation du transit intestinal</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="mb-2"><strong>Chemin Cortexte:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Soins * SOINS / Pancarte* Pancarte / Apport / élimination</a> ou <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Pancarte * Pancarte / Apport / élimination</a></p>
+                        </div>
+                    </details>
+                </section>
+                
+                <section class="mb-6 theme-section">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4 border-l-4 border-blue-600 pl-3">Évaluation du risque suicidaire</h2>
+                    
+                    <!-- Items identiques à HC -->
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">Une évaluation de la crise suicidaire en utilisant la grille RUD</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="mb-2"><strong>Chemin Cortexte:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Quest * QUESTIONNAIRES PEC / Lien REQUEST * ACCES FONCTIONNALITES/ Saisir un nouveau questionnaire* (BM#1) UDR / RUD-Risque suicidaire</a></p>
+                            <p class="mb-2"><strong>ou</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">... / Base minimale #1 / (BM#1) UDR / RUD-Risque suicidaire</a></p>
+                            <p class="mb-2"><strong>Puis:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">... / Tableau récapitulatif des scores ... / Exporter en Pdf ou Excel</a></p>
+                            <p class="text-sm text-gray-600"><strong>Remarques:</strong> Valider le questionnaire pour l'enregistrer.</p>
+                        </div>
+                    </details>
+                    
+                    <details class="item-wrapper border-b border-gray-200">
+                        <summary class="py-4 font-medium text-gray-700">Une conclusion médicale sur le risque suicidaire</summary>
+                        <div class="p-4 pt-2 ml-10 border-l border-gray-200">
+                            <p class="mb-2"><strong>Chemin Cortexte:</strong> <a href="" target="_blank" class="bg-indigo-100 text-indigo-800 py-1 px-2 rounded-md font-mono text-sm hover:bg-indigo-200 hover:text-indigo-900 transition-colors duration-150">Obs* Ajouter / …</a></p>
+                            <p class="text-sm text-gray-600"><strong>Remarques:</strong> Conclusion Médicale avec le score à tracer dans l'observation de Cortexte.</p>
+                        </div>
+                    </details>
+                </section>
+
+                <section class="mb-6 theme-section">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4 border-l-4 border-blue-600 pl-3">Lien avec médecine de ville</h2>
+                    <div class="p-4 text-gray-500">
+                        <p><i>(Aucun item spécifique listé pour cette thématique dans la grille fournie)</i></p>
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- Message "Aucun résultat" pour la recherche -->
+            <div id="no-results" class="hidden text-center p-10">
+                <p class="text-gray-600 text-lg">Aucun résultat trouvé.</p>
+                <p class="text-gray-500 mt-2">Essayez de modifier vos termes de recherche.</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Script JavaScript pour l'interactivité -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // --- GESTION DES ONGLETS ---
+            const tabLinks = document.querySelectorAll('.tab-link');
+            const tabPanes = document.querySelectorAll('.tab-pane');
+
+            tabLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    const tabId = link.getAttribute('data-tab');
+
+                    // Gérer l'état actif des onglets
+                    tabLinks.forEach(item => item.classList.remove('active'));
+                    link.classList.add('active');
+
+                    // Afficher le bon contenu
+                    tabPanes.forEach(pane => {
+                        if (pane.id === tabId) {
+                            pane.classList.remove('hidden');
+                        } else {
+                            pane.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            // --- GESTION DE LA RECHERCHE ---
+            const searchBar = document.getElementById('search-bar');
+            const items = document.querySelectorAll('.item-wrapper'); // Les accordéons <details>
+            const themes = document.querySelectorAll('.theme-section'); // Les sections <section>
+            const noResults = document.getElementById('no-results');
+
+            searchBar.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase().trim();
+                let hasResults = false;
+
+                // 1. Filtrer les items
+                items.forEach(item => {
+                    const itemText = item.textContent.toLowerCase();
+                    const match = itemText.includes(query);
+                    item.classList.toggle('hidden-by-search', !match);
+                    if (match) {
+                        hasResults = true;
+                    }
+                });
+
+                // 2. Filtrer les thématiques (cacher un titre si tous ses items sont cachés)
+                themes.forEach(theme => {
+                    const visibleItems = theme.querySelectorAll('.item-wrapper:not(.hidden-by-search)');
+                    theme.classList.toggle('hidden-by-search', visibleItems.length === 0);
+                });
+
+                // 3. Afficher le message "Aucun résultat"
+                noResults.classList.toggle('hidden', hasResults);
+            });
+
+        });
+    </script>
+
+</body>
+</html>
+
